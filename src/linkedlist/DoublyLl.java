@@ -23,14 +23,76 @@ public class DoublyLl {
         head = node;
     }
 
-    public void display(){
+    public void insertLast(int val){
+        Node node = new Node(val);
+
+        node.next = null;
+
+        if(head == null){
+            node.previous = null;
+            head = node;
+            return;
+        }
+
+        Node tail = head;
+        while(tail.next != null){
+            tail = tail.next;
+        }
+
+        node.previous = tail;
+        tail.next = node;
+    }
+
+    public Node findNode(int val){
         Node node = head;
         while(node != null){
+            if(node.val == val){
+                return node;
+            }
+            node = node.next;
+        }
+
+        return null;
+    }
+    public void insertAfterNode(int val,int nodeBefore){
+        Node prevNode = findNode(nodeBefore);
+
+        if(prevNode == null){
+            System.out.print("Doesn't exist");
+            return;
+        }
+
+        Node node = new Node(val);
+
+        node.next = prevNode.next;
+        node.previous = prevNode;
+        prevNode.next = node;
+        if(node.next != null){
+            node.next.previous = node;
+        }
+
+    }
+
+    public void display(){
+        Node node = head;
+        Node tail = node;
+        while(node != null){
             System.out.print(node.val + " -> ");
+            tail = node;
             node = node.next;
         }
         System.out.println("null");
+
+        while (tail != null) {
+            System.out.print(tail.val + " <- ");
+            tail = tail.previous;
+        }
+
+        System.out.println("null");
     }
+
+
+
     private class Node{
 
         int val;
