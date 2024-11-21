@@ -51,12 +51,31 @@ public class Linkedlist {
         if (head == null) return false;
         Node tortoise = head;
         Node hare = head;
-        while(hare.next != null && hare.next.next != null){
+        while(hare != null && hare.next != null){
             tortoise = tortoise.next;
             hare = hare.next.next;
             if(tortoise == hare) return true;
         }
         return false;
+    }
+
+    public int cycleLength(Node head) {
+        if (head == null) return 0;
+        Node tortoise = head;
+        Node hare = head;
+        while(hare != null && hare.next != null){
+            tortoise = tortoise.next;
+            hare = hare.next.next;
+            if(tortoise == hare) {
+                int length = 0;
+                do {
+                    tortoise = tortoise.next;
+                    length++;
+                } while (tortoise != hare);
+                return length;
+            }
+        }
+        return 0;
     }
 
 
