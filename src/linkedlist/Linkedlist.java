@@ -2,36 +2,36 @@ package linkedlist;
 
 public class Linkedlist {
 
-    private Node head;
-    private Node tail;
+    private ListNode head;
+    private ListNode tail;
     private final int size;
 
-    public Linkedlist(){
+    public Linkedlist() {
         this.size = 0;
     }
 
 
-    public void removeDuplicateFromSorted(Node head){
-        Node currentNode = head;
-        while(currentNode != null && currentNode.next != null){
-            if(currentNode.val == currentNode.next.val){
-                currentNode.next = currentNode.next.next;
-            }else {
-                currentNode = currentNode.next;
+    public void removeDuplicateFromSorted(ListNode head) {
+        ListNode currentListNode = head;
+        while (currentListNode != null && currentListNode.next != null) {
+            if (currentListNode.val == currentListNode.next.val) {
+                currentListNode.next = currentListNode.next.next;
+            } else {
+                currentListNode = currentListNode.next;
             }
         }
 
     }
 
 
-    public Node mergeTwoLists(Node list1, Node list2) {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         if (list1 == null) return list2;
         if (list2 == null) return list1;
 
-        Node dummy = new Node();
-        Node current = dummy;
-        while(list1 != null && list2 != null){
-            if(list1.val <= list2.val){
+        ListNode dummy = new ListNode();
+        ListNode current = dummy;
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
                 current.next = list1;
                 list1 = list1.next;
             } else {
@@ -47,26 +47,26 @@ public class Linkedlist {
 
     }
 
-    public boolean hasCycle(Node head) {
+    public boolean hasCycle(ListNode head) {
         if (head == null) return false;
-        Node tortoise = head;
-        Node hare = head;
-        while(hare != null && hare.next != null){
+        ListNode tortoise = head;
+        ListNode hare = head;
+        while (hare != null && hare.next != null) {
             tortoise = tortoise.next;
             hare = hare.next.next;
-            if(tortoise == hare) return true;
+            if (tortoise == hare) return true;
         }
         return false;
     }
 
-    public int cycleLength(Node head) {
+    public int cycleLength(ListNode head) {
         if (head == null) return 0;
-        Node tortoise = head;
-        Node hare = head;
-        while(hare != null && hare.next != null){
+        ListNode tortoise = head;
+        ListNode hare = head;
+        while (hare != null && hare.next != null) {
             tortoise = tortoise.next;
             hare = hare.next.next;
-            if(tortoise == hare) {
+            if (tortoise == hare) {
                 int length = 0;
                 do {
                     tortoise = tortoise.next;
@@ -78,18 +78,38 @@ public class Linkedlist {
         return 0;
     }
 
+    public ListNode detectCycle(ListNode head) {
 
-    private class Node{
+        ListNode tortoise = head;
+        ListNode hare = head;
+        while (hare != null && hare.next != null) {
+            tortoise = tortoise.next;
+            hare = hare.next.next;
+            if (tortoise == hare) {
+                tortoise = head;
+                while (tortoise != hare) {
+                    hare = hare.next;
+                    tortoise = tortoise.next;
+                }
+                return hare;
+            }
+        }
+        return null;
+    }
+
+    private class ListNode {
 
         int val;
-        Node next;
+        ListNode next;
 
-        Node(){}
-        Node(int val){
+        ListNode() {
+        }
+
+        ListNode(int val) {
             this.val = val;
         }
 
-        Node(int val,Node next){
+        ListNode(int val, ListNode next) {
             this.val = val;
             this.next = next;
         }
